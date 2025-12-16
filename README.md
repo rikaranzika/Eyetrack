@@ -84,7 +84,7 @@ npm run package-win32
 
 The executable will be created in the `dist/` folder. You can then distribute the entire folder to users who can run the application without installing Node.js or any dependencies.
 
-**Note:** The icon file `icon.ico` is referenced in the build script but optional. If you want to add a custom icon, place an `icon.ico` file in the project root directory before building.
+**Note:** Building Windows executables on Linux requires Wine to be installed. On Windows, the packaging will work natively without any additional requirements.
 
 ## Requirements
 

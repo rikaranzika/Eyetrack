@@ -15,8 +15,7 @@ function createWindow() {
             nodeIntegration: false,
             contextIsolation: true,
             enableRemoteModule: false
-        },
-        icon: path.join(__dirname, 'icon.ico')
+        }
     });
 
     // Load the index.html file
