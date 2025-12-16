@@ -1,0 +1,23 @@
+{
+  "name": "eyetrack",
+  "version": "1.0.0",
+  "description": "A browser-based eye tracking application that enables hands-free control of web pages using eye movements and blinks.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "package-win": "electron-packager . Eyetrack --platform=win32 --arch=x64 --out=dist --overwrite --icon=icon.ico",
+    "package-win32": "electron-packager . Eyetrack --platform=win32 --arch=ia32 --out=dist --overwrite --icon=icon.ico"
+  },
+  "keywords": [
+    "eye-tracking",
+    "electron",
+    "desktop-app",
+    "accessibility"
+  ],
+  "author": "rikaranzika",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^39.2.7",
+    "electron-packager": "^17.1.2"
+  }
+}

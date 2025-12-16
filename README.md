@@ -15,6 +15,28 @@ A browser-based eye tracking application that enables hands-free control of web 
 
 ## Quick Start
 
+### Option 1: Run as Desktop Application (Recommended)
+
+1. **Clone or download this repository**
+   ```bash
+   git clone https://github.com/rikaranzika/Eyetrack.git
+   cd Eyetrack
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Run the Electron app**
+   ```bash
+   npm start
+   ```
+
+4. **Click "Start Tracking" and allow camera access**
+
+### Option 2: Run in Browser
+
 1. **Clone or download this repository**
    ```bash
    git clone https://github.com/rikaranzika/Eyetrack.git
@@ -46,8 +68,32 @@ A browser-based eye tracking application that enables hands-free control of web 
 
 For detailed instructions, see [USAGE.md](USAGE.md)
 
+## Building Standalone Executable
+
+You can package the application as a standalone Windows executable:
+
+### Build for Windows (64-bit)
+```bash
+npm run package-win
+```
+
+### Build for Windows (32-bit)
+```bash
+npm run package-win32
+```
+
+The executable will be created in the `dist/` folder. You can then distribute the entire folder to users who can run the application without installing Node.js or any dependencies.
+
+**Note:** The icon file `icon.ico` is referenced in the build script but optional. If you want to add a custom icon, place an `icon.ico` file in the project root directory before building.
+
 ## Requirements
 
+### For Desktop Application
+- Node.js 14.x or higher (for development only)
+- Functional webcam
+- Internet connection (to load MediaPipe library)
+
+### For Browser Version
 - Modern web browser (Chrome, Firefox, or Edge)
 - Functional webcam
 - Internet connection (to load MediaPipe library)
@@ -58,6 +104,7 @@ For detailed instructions, see [USAGE.md](USAGE.md)
 - HTML5/CSS3
 - MediaPipe FaceMesh for face landmark detection
 - getUserMedia API for webcam access
+- Electron.js for desktop packaging
 
 ## Browser Compatibility
 
@@ -72,13 +119,16 @@ Eyetrack/
 ├── index.html      # Main HTML structure
 ├── styles.css      # Application styling
 ├── script.js       # Core application logic
+├── main.js         # Electron main process
+├── package.json    # Node.js project configuration
+├── .gitignore      # Git ignore file
 ├── USAGE.md        # Detailed usage guide
 └── README.md       # This file
 ```
 
 ## Privacy & Security
 
-- All processing is done locally in your browser
+- All processing is done locally on your machine (browser or desktop app)
 - No video or images are uploaded to any server
 - No data is stored or transmitted
 - Camera access can be revoked at any time
