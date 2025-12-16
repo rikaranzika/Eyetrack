@@ -60,12 +60,14 @@ class EyeTrackingController {
         };
         
         // Eye landmark indices for MediaPipe FaceMesh
-        this.LEFT_EYE_INDICES = [33, 160, 158, 133, 153, 144];
-        this.RIGHT_EYE_INDICES = [362, 385, 387, 263, 373, 380];
-        this.LEFT_EYE_UPPER = [159, 145];
-        this.LEFT_EYE_LOWER = [23, 27];
-        this.RIGHT_EYE_UPPER = [386, 374];
-        this.RIGHT_EYE_LOWER = [253, 257];
+        // These indices correspond to specific points around the eyes in the 468-point face mesh
+        // Reference: https://github.com/google/mediapipe/blob/master/mediapipe/modules/face_geometry/data/canonical_face_model_uv_visualization.png
+        this.LEFT_EYE_INDICES = [33, 160, 158, 133, 153, 144];  // Left eye contour points
+        this.RIGHT_EYE_INDICES = [362, 385, 387, 263, 373, 380];  // Right eye contour points
+        this.LEFT_EYE_UPPER = [159, 145];  // Top eyelid points for EAR calculation
+        this.LEFT_EYE_LOWER = [23, 27];    // Bottom eyelid points for EAR calculation
+        this.RIGHT_EYE_UPPER = [386, 374];  // Top eyelid points for EAR calculation
+        this.RIGHT_EYE_LOWER = [253, 257];  // Bottom eyelid points for EAR calculation
         
         this.initializeEventListeners();
     }
@@ -256,6 +258,7 @@ class EyeTrackingController {
         const rightEAR = this.calculateEAR(landmarks, this.RIGHT_EYE_UPPER, this.RIGHT_EYE_LOWER);
         
         // Threshold for detecting closed eye (lower EAR means eye is more closed)
+        // Based on research: "Real-Time Eye Blink Detection using Facial Landmarks" (Soukupová and Čech, 2016)
         const EAR_THRESHOLD = 0.18;
         
         const leftEyeClosed = leftEAR < EAR_THRESHOLD;
@@ -358,6 +361,13 @@ class EyeTrackingController {
         this.updateStatus(null, action);
     }
     
+    getViewportCenter() {
+        return {
+            x: window.innerWidth / 2,
+            y: window.innerHeight / 2
+        };
+    }
+    
     handleLeftClick() {
         if (!this.settings.enableClicks) return;
         
@@ -365,16 +375,17 @@ class EyeTrackingController {
         this.showActionIndicator('Left Click 🖱️');
         
         // Simulate click at the center of the viewport
+        const center = this.getViewportCenter();
         const clickEvent = new MouseEvent('click', {
             view: window,
             bubbles: true,
             cancelable: true,
-            clientX: window.innerWidth / 2,
-            clientY: window.innerHeight / 2
+            clientX: center.x,
+            clientY: center.y
         });
         
         // Get element at center and dispatch click
-        const element = document.elementFromPoint(window.innerWidth / 2, window.innerHeight / 2);
+        const element = document.elementFromPoint(center.x, center.y);
         if (element && element !== this.canvasElement) {
             element.dispatchEvent(clickEvent);
         }
@@ -387,16 +398,17 @@ class EyeTrackingController {
         this.showActionIndicator('Right Click 🖱️');
         
         // Simulate right click (contextmenu) at the center of the viewport
+        const center = this.getViewportCenter();
         const clickEvent = new MouseEvent('contextmenu', {
             view: window,
             bubbles: true,
             cancelable: true,
-            clientX: window.innerWidth / 2,
-            clientY: window.innerHeight / 2
+            clientX: center.x,
+            clientY: center.y
         });
         
         // Get element at center and dispatch click
-        const element = document.elementFromPoint(window.innerWidth / 2, window.innerHeight / 2);
+        const element = document.elementFromPoint(center.x, center.y);
         if (element && element !== this.canvasElement) {
             element.dispatchEvent(clickEvent);
         }
