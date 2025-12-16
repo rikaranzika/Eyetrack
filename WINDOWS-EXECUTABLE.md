@@ -2,22 +2,31 @@
 
 ## For End Users
 
-### Using the Pre-built Executable
+### Download the Pre-built Executable
 
-1. **Download the distribution package**
+**Option 1: Download from GitHub Releases (Recommended)**
+
+1. **Go to the Releases page**
+   - Visit: https://github.com/rikaranzika/Eyetrack/releases
+   - Download the latest `Eyetrack-Windows-x64.zip` file
+
+2. **Extract and run**
    - Extract the ZIP file to any location on your computer
-   - The folder will be named `Eyetrack-win32-x64`
+   - Open the `Eyetrack-win32-x64` folder
+   - Double-click `Eyetrack.exe` to start the application
 
-2. **Run the application**
-   - Double-click `Eyetrack.exe` to start
+3. **Use the application**
    - Allow camera access when prompted
    - Click "Start Tracking" to begin
+   - Enjoy hands-free control!
 
-3. **Important Notes**
-   - Keep ALL files in the folder together
-   - The entire folder (~327 MB) must stay intact
-   - No installation required
-   - Internet connection needed for first run (to load MediaPipe library)
+**Option 2: Build it yourself (see Developer section below)**
+
+### Important Notes
+- Keep ALL files in the folder together
+- The entire folder (~327 MB) must stay intact
+- No installation required
+- Internet connection needed for first run (to load MediaPipe library)
 
 ### System Requirements
 

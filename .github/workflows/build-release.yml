@@ -1,0 +1,66 @@
+name: Build and Release Windows Executable
+
+on:
+  push:
+    tags:
+      - 'v*'  # Trigger on version tags like v1.0.0
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Build Windows executable
+      run: npm run package-win
+      
+    - name: Create ZIP archive
+      run: |
+        cd dist
+        Compress-Archive -Path Eyetrack-win32-x64 -DestinationPath Eyetrack-Windows-x64.zip
+      shell: pwsh
+      
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Eyetrack-Windows-x64
+        path: dist/Eyetrack-Windows-x64.zip
+        
+    - name: Create Release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: dist/Eyetrack-Windows-x64.zip
+        body: |
+          ## Eye Tracking Controller - Windows Release
+          
+          ### Installation
+          1. Download `Eyetrack-Windows-x64.zip`
+          2. Extract the ZIP file to any location
+          3. Double-click `Eyetrack.exe` to run the application
+          
+          ### Features
+          - ✅ Resizable window (minimum 800x600)
+          - ✅ Eye tracking with scroll control
+          - ✅ Blink detection for clicks
+          - ✅ Adjustable sensitivity settings
+          
+          ### Requirements
+          - Windows 7 or later (64-bit)
+          - Working webcam
+          - Internet connection (for MediaPipe library)
+          
+          **Note:** The entire folder must be kept together - don't separate the files.
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

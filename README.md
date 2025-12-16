@@ -4,6 +4,20 @@ A browser-based eye tracking application that enables hands-free control of web 
 
 ![Eye Tracking Controller](https://github.com/user-attachments/assets/8ec27ee3-39a6-4f0f-9e7c-ad9bcb1536a6)
 
+## 🚀 Download Windows Executable
+
+**Want to just run the app? No installation needed!**
+
+👉 **[Download Eyetrack.exe from Releases](https://github.com/rikaranzika/Eyetrack/releases)** 👈
+
+1. Download `Eyetrack-Windows-x64.zip`
+2. Extract and double-click `Eyetrack.exe`
+3. That's it! No Node.js, no installation required.
+
+📖 [Guide complet en français / Full guide](./OBTENIR-EXE.md)
+
+---
+
 ## Features
 
 - 👀 **Automatic Scrolling**: Look up/down to scroll web pages
@@ -12,10 +26,17 @@ A browser-based eye tracking application that enables hands-free control of web 
 - 🔒 **Privacy First**: All processing happens locally in your browser
 - 🎯 **Real-time Performance**: ~30 FPS video processing
 - 🎨 **Modern UI**: Clean, intuitive interface with live status updates
+- 🪟 **Resizable Window**: Adjust window size to your preference (minimum 800x600)
 
 ## Quick Start
 
-### Option 1: Run as Desktop Application (Recommended)
+### Option 1: Download Pre-built Windows Executable (Easiest)
+
+**[→ Go to Releases and download the .exe](https://github.com/rikaranzika/Eyetrack/releases)**
+
+No installation, no setup required! See [OBTENIR-EXE.md](./OBTENIR-EXE.md) for details.
+
+### Option 2: Run as Desktop Application (For Developers)
 
 1. **Clone or download this repository**
    ```bash
@@ -35,7 +56,7 @@ A browser-based eye tracking application that enables hands-free control of web 
 
 4. **Click "Start Tracking" and allow camera access**
 
-### Option 2: Run in Browser
+### Option 3: Run in Browser
 
 1. **Clone or download this repository**
    ```bash
