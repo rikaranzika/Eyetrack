@@ -7,10 +7,13 @@ const path = require('path');
 let mainWindow;
 
 function createWindow() {
-    // Create the browser window
+    // Create the browser window with resizable option
     mainWindow = new BrowserWindow({
         width: 1280,
         height: 900,
+        minWidth: 800,
+        minHeight: 600,
+        resizable: true,
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true
