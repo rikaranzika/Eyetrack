@@ -13,13 +13,12 @@ function createWindow() {
         height: 900,
         webPreferences: {
             nodeIntegration: false,
-            contextIsolation: true,
-            enableRemoteModule: false
+            contextIsolation: true
         }
     });
 
     // Load the index.html file
-    mainWindow.loadFile('index.html');
+    mainWindow.loadFile(path.join(__dirname, 'index.html'));
 
     // Open DevTools in development mode (optional)
     // mainWindow.webContents.openDevTools();
