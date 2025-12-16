@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eye Tracking Controller</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>👁️ Eye Tracking Controller</h1>
+            <p class="subtitle">Control your browser with eye movements and blinks</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Video Feed Section -->
+            <div class="video-section">
+                <video id="videoElement" autoplay playsinline></video>
+                <canvas id="canvasElement"></canvas>
+                <div class="video-overlay" id="videoOverlay">
+                    <div class="camera-icon">📹</div>
+                    <p>Camera will appear here</p>
+                </div>
+            </div>
+
+            <!-- Control Panel -->
+            <div class="control-panel">
+                <div class="status-section">
+                    <h3>Status</h3>
+                    <div class="status-display" id="statusDisplay">
+                        <div class="status-item">
+                            <span class="status-label">Tracking:</span>
+                            <span class="status-value" id="trackingStatus">Stopped</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">Last Action:</span>
+                            <span class="status-value" id="lastAction">None</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">FPS:</span>
+                            <span class="status-value" id="fpsDisplay">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controls-section">
+                    <h3>Controls</h3>
+                    <div class="button-group">
+                        <button id="startBtn" class="btn btn-primary">Start Tracking</button>
+                        <button id="stopBtn" class="btn btn-secondary" disabled>Stop Tracking</button>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>Settings</h3>
+                    
+                    <div class="setting-item">
+                        <label class="setting-label">
+                            <input type="checkbox" id="enableClicks" checked>
+                            Enable Click Simulation
+                        </label>
+                    </div>
+
+                    <div class="setting-item">
+                        <label class="setting-label">
+                            <input type="checkbox" id="debugMode">
+                            Debug Mode (Show Face Mesh)
+                        </label>
+                    </div>
+
+                    <div class="setting-item">
+                        <label for="scrollSpeed">Scroll Speed: <span id="scrollSpeedValue">5</span>px</label>
+                        <input type="range" id="scrollSpeed" min="1" max="20" value="5" class="slider">
+                    </div>
+
+                    <div class="setting-item">
+                        <label for="blinkDuration">Blink Duration: <span id="blinkDurationValue">200</span>ms</label>
+                        <input type="range" id="blinkDuration" min="100" max="500" value="200" step="50" class="slider">
+                    </div>
+
+                    <div class="setting-item">
+                        <label for="scrollThreshold">Scroll Sensitivity: <span id="scrollThresholdValue">0.02</span></label>
+                        <input type="range" id="scrollThreshold" min="0.01" max="0.05" value="0.02" step="0.001" class="slider">
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>Instructions</h3>
+                    <ul class="instructions">
+                        <li>👀 Look up/down to scroll the page</li>
+                        <li>👁️ Blink left eye for left click</li>
+                        <li>👁️ Blink right eye for right click</li>
+                        <li>⚙️ Adjust settings for better control</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Eye tracking runs entirely in your browser. No data is sent to any server.</p>
+        </footer>
+    </div>
+
+    <!-- Load MediaPipe FaceMesh from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
+    
+    <!-- Application Script -->
+    <script src="script.js"></script>
+</body>
+</html>
