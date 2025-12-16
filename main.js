@@ -10,7 +10,6 @@ function createWindow() {
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
-            enableRemoteModule: false,
             webSecurity: true
         },
         icon: path.join(__dirname, 'assets', 'icon.png'),
