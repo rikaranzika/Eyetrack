@@ -1,4 +1,96 @@
-Copilot said: ### **Cahier des Charges : Application de
+# Eye Tracking Controller 👁️
+
+A browser-based eye tracking application that enables hands-free control of web pages using eye movements and blinks.
+
+![Eye Tracking Controller](https://github.com/user-attachments/assets/8ec27ee3-39a6-4f0f-9e7c-ad9bcb1536a6)
+
+## Features
+
+- 👀 **Automatic Scrolling**: Look up/down to scroll web pages
+- 🖱️ **Click Simulation**: Blink left eye for left click, right eye for right click
+- ⚙️ **Configurable Settings**: Adjust scroll speed, blink duration, and sensitivity
+- 🔒 **Privacy First**: All processing happens locally in your browser
+- 🎯 **Real-time Performance**: ~30 FPS video processing
+- 🎨 **Modern UI**: Clean, intuitive interface with live status updates
+
+## Quick Start
+
+1. **Clone or download this repository**
+   ```bash
+   git clone https://github.com/rikaranzika/Eyetrack.git
+   cd Eyetrack
+   ```
+
+2. **Start a local web server**
+   ```bash
+   # Using Python 3
+   python3 -m http.server 8080
+   
+   # Or using Python 2
+   python -m SimpleHTTPServer 8080
+   ```
+
+3. **Open in browser**
+   ```
+   http://localhost:8080/index.html
+   ```
+
+4. **Click "Start Tracking" and allow camera access**
+
+## Usage
+
+- **Scroll Up**: Tilt your head slightly backward
+- **Scroll Down**: Tilt your head slightly forward  
+- **Left Click**: Blink your left eye
+- **Right Click**: Blink your right eye
+
+For detailed instructions, see [USAGE.md](USAGE.md)
+
+## Requirements
+
+- Modern web browser (Chrome, Firefox, or Edge)
+- Functional webcam
+- Internet connection (to load MediaPipe library)
+
+## Technologies
+
+- JavaScript (ES6+)
+- HTML5/CSS3
+- MediaPipe FaceMesh for face landmark detection
+- getUserMedia API for webcam access
+
+## Browser Compatibility
+
+- ✅ Chrome 90+
+- ✅ Firefox 88+
+- ✅ Edge 90+
+
+## Project Structure
+
+```
+Eyetrack/
+├── index.html      # Main HTML structure
+├── styles.css      # Application styling
+├── script.js       # Core application logic
+├── USAGE.md        # Detailed usage guide
+└── README.md       # This file
+```
+
+## Privacy & Security
+
+- All processing is done locally in your browser
+- No video or images are uploaded to any server
+- No data is stored or transmitted
+- Camera access can be revoked at any time
+
+## Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests.
+
+---
+
+## Original Specification (French)
+
 Cahier des Charges : Application de Détection du Regard pour Contrôle de Pages Web
 Contexte du Projet
 L'objectif est de développer une application fonctionnant dans les navigateurs web sur PC, qui utilise une caméra pour détecter les mouvements des yeux et propose les fonctionnalités suivantes :
