@@ -106,23 +106,27 @@ class EyeTrackApp {
                 return;
             }
             
-            webgazer.setGazeListener((data, timestamp) => {
-                if (data == null) return;
-                
-                this.gazeData = data;
-                this.handleGazeData(data);
-            })
-            .showVideoPreview(true)
-            .showPredictionPoints(false)
-            .applyKalmanFilter(true)
-            .begin()
-            .then(() => {
-                // Wait for WebGazer to be ready
-                setTimeout(() => resolve(), 500);
-            })
-            .catch(err => {
-                reject(new Error('Impossible d\'accéder à la caméra. Veuillez autoriser l\'accès.'));
-            });
+            try {
+                webgazer.setGazeListener((data, timestamp) => {
+                    if (data === null) return;
+                    
+                    this.gazeData = data;
+                    this.handleGazeData(data);
+                })
+                .showVideoPreview(true)
+                .showPredictionPoints(false)
+                .applyKalmanFilter(true)
+                .begin()
+                .then(() => {
+                    // Wait for WebGazer to be ready
+                    setTimeout(() => resolve(), 500);
+                })
+                .catch(err => {
+                    reject(new Error('Impossible d\'accéder à la caméra. Veuillez autoriser l\'accès.'));
+                });
+            } catch (error) {
+                reject(new Error('Erreur lors de l\'initialisation de WebGazer: ' + error.message));
+            }
         });
     }
 
@@ -184,7 +188,7 @@ class EyeTrackApp {
         const now = Date.now();
         
         // If no gaze data for a short period, might be a blink
-        if (this.gazeData == null) {
+        if (this.gazeData === null) {
             if (now - this.lastBlinkTime > this.blinkThreshold && 
                 now - this.lastBlinkTime < 2000) {
                 this.handleBlink();
@@ -192,7 +196,7 @@ class EyeTrackApp {
         }
         
         // Alternative: detect based on rapid Y-position changes
-        if (this.gazeData && this.lastGazeY != null) {
+        if (this.gazeData && this.lastGazeY !== null) {
             const yDiff = Math.abs(this.gazeData.y - this.lastGazeY);
             
             // Large sudden changes might indicate a blink
@@ -310,7 +314,7 @@ class EyeTrackApp {
     }
 
     stop() {
-        if (typeof webgazer !== 'undefined' && webgazer.isReady && webgazer.isReady()) {
+        if (typeof webgazer !== 'undefined' && typeof webgazer.isReady === 'function' && webgazer.isReady()) {
             webgazer.end();
         }
         

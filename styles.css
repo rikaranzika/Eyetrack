@@ -392,20 +392,21 @@ body {
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
-/* WebGazer video */
+/* WebGazer video - positioned with high specificity */
 #webgazerVideoFeed {
-    position: fixed !important;
+    position: fixed;
     bottom: 20px;
     left: 20px;
-    width: 240px !important;
-    height: 180px !important;
+    width: 240px;
+    height: 180px;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     z-index: 1001;
 }
 
-#webgazerFaceOverlay, #webgazerFaceFeedbackBox {
-    display: block !important;
+#webgazerFaceOverlay,
+#webgazerFaceFeedbackBox {
+    display: block;
 }
 
 /* Media queries pour responsive */
@@ -423,7 +424,7 @@ body {
     }
 
     #webgazerVideoFeed {
-        width: 160px !important;
-        height: 120px !important;
+        width: 160px;
+        height: 120px;
     }
 }
