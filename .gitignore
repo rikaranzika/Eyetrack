@@ -1,0 +1,21 @@
+# Node modules
+node_modules/
+package-lock.json
+
+# Build output
+dist/
+out/
+
+# OS files
+.DS_Store
+Thumbs.db
+*.log
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Electron
+*.asar

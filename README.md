@@ -1,6 +1,6 @@
 # Eyetrack 👁️
 
-Application web de contrôle par suivi oculaire permettant de contrôler votre navigateur avec vos yeux.
+Application de contrôle par suivi oculaire permettant de contrôler votre ordinateur avec vos yeux.
 
 ## 🎯 Fonctionnalités
 
@@ -10,19 +10,72 @@ Application web de contrôle par suivi oculaire permettant de contrôler votre n
 - **Interface intuitive** : Panneau de contrôle avec paramètres réglables en temps réel
 - **Visualisation en direct** : Aperçu de la webcam et indicateur de position du regard
 
-## 🚀 Démarrage rapide
+## 🚀 Deux façons d'utiliser Eyetrack
+
+### Option 1: Application de bureau (.exe) - **RECOMMANDÉ** 
+
+✅ **Avantages:**
+- Fonctionne sans connexion internet après installation
+- Pas de problèmes de firewall ou de CDN bloqué
+- Installation simple avec un double-clic
+- Application native Windows avec icône dans la barre des tâches
+
+📦 **Installation:**
+
+1. **Télécharger Node.js** (si pas déjà installé)
+   - Rendez-vous sur https://nodejs.org/
+   - Téléchargez la version LTS (Long Term Support)
+   - Installez-le (installation par défaut suffit)
+
+2. **Préparer l'application**
+   ```bash
+   # Dans le dossier Eyetrack
+   npm install
+   ```
+   ⏳ Cette étape prend 2-3 minutes et télécharge toutes les dépendances
+
+3. **Créer l'exécutable Windows**
+   ```bash
+   npm run build
+   ```
+   ⏳ Cette étape prend 3-5 minutes et crée l'installateur
+
+4. **Installer l'application**
+   - Ouvrez le dossier `dist/`
+   - Double-cliquez sur `Eyetrack Setup 1.0.0.exe`
+   - Suivez l'assistant d'installation
+
+5. **Lancer Eyetrack**
+   - Depuis le raccourci sur le bureau
+   - Ou depuis le menu Démarrer → Eyetrack
+
+📖 **Guide complet:** Consultez [BUILD.md](BUILD.md) pour plus de détails
+
+### Option 2: Application web (navigateur)
+
+Cette option nécessite une connexion internet pour charger WebGazer.js depuis un CDN.
 
 1. Ouvrez simplement le fichier `index.html` dans votre navigateur web moderne (Chrome, Firefox, Edge, Safari)
 2. Cliquez sur "Démarrer le suivi" et autorisez l'accès à votre caméra
 3. Suivez la calibration pour une meilleure précision
 4. Commencez à contrôler votre navigateur avec vos yeux !
 
+⚠️ **Note:** Si vous avez des problèmes de firewall ou que WebGazer.js ne se charge pas, utilisez l'Option 1 (.exe)
+
 ## 📋 Prérequis
 
+### Pour l'application .exe
+- Windows 10 ou supérieur
+- Node.js 18+ (pour la compilation)
+- Une webcam fonctionnelle
+- Un bon éclairage pour une détection optimale
+
+### Pour l'application web
 - Un navigateur web moderne avec support de:
   - WebRTC (accès caméra)
   - JavaScript ES6+
   - MediaDevices API
+- Connexion internet (pour charger WebGazer.js)
 - Une webcam fonctionnelle
 - Un bon éclairage pour une détection optimale
 
@@ -56,10 +109,10 @@ Application web de contrôle par suivi oculaire permettant de contrôler votre n
 
 ## 🔧 Technologies utilisées
 
+- **Electron** : Framework pour créer l'application de bureau
 - **HTML5/CSS3** : Structure et style de l'interface
 - **JavaScript (Vanilla)** : Logique applicative
 - **WebGazer.js** : Bibliothèque open-source de suivi oculaire
-  - Version utilisée : CDN depuis webgazer.cs.brown.edu
   - Basé sur TensorFlow.js pour l'apprentissage automatique
   - Fonctionne entièrement côté client (aucune donnée envoyée à un serveur)
 
@@ -67,26 +120,21 @@ Application web de contrôle par suivi oculaire permettant de contrôler votre n
 
 ```
 Eyetrack/
-├── index.html      # Page principale de l'application
-├── styles.css      # Styles et mise en page
-├── app.js          # Logique de l'application
-└── README.md       # Documentation
+├── main.js              # Point d'entrée Electron
+├── index.html           # Page principale de l'application
+├── styles.css           # Styles et mise en page
+├── app.js               # Logique de l'application
+├── package.json         # Configuration npm et Electron
+├── test-scroll.html     # Page de test
+├── assets/              # Icônes et ressources
+├── README.md            # Cette documentation
+├── BUILD.md             # Guide de compilation détaillé
+└── DEPLOYMENT.md        # Guide de déploiement web
 ```
-
-## 🎨 Architecture
-
-L'application est structurée autour d'une classe principale `EyeTrackApp` qui gère:
-
-1. **Initialisation WebGazer** : Configuration du suivi oculaire
-2. **Gestion du regard** : Traitement des données de position
-3. **Défilement automatique** : Calcul et application du défilement
-4. **Détection de clignements** : Identification des clignements pour les clics
-5. **Calibration** : Amélioration de la précision du suivi
-6. **Interface utilisateur** : Mise à jour des informations et statuts
 
 ## 🔒 Confidentialité et sécurité
 
-- **Aucune donnée envoyée** : Tout le traitement se fait localement dans votre navigateur
+- **Aucune donnée envoyée** : Tout le traitement se fait localement sur votre ordinateur
 - **Pas de stockage** : Aucune image ou donnée n'est enregistrée
 - **Open-source** : Code transparent et vérifiable
 - **Permissions** : Nécessite uniquement l'accès à la caméra (demandé explicitement)
@@ -102,9 +150,9 @@ L'application est structurée autour d'une classe principale `EyeTrackApp` qui g
 ## 🐛 Dépannage
 
 ### La caméra ne se lance pas
-- Vérifiez les permissions de votre navigateur
+- Vérifiez les permissions de votre système d'exploitation
 - Assurez-vous qu'aucune autre application n'utilise la caméra
-- Essayez de recharger la page
+- Essayez de relancer l'application
 
 ### Le suivi n'est pas précis
 - Effectuez une nouvelle calibration
@@ -121,8 +169,24 @@ L'application est structurée autour d'une classe principale `EyeTrackApp` qui g
 - Ajustez la sensibilité dans les paramètres
 - Regardez plus ou moins loin des bords de l'écran
 
-## 🌐 Compatibilité navigateurs
+### L'application .exe ne se lance pas
+- Vérifiez que vous avez installé toutes les dépendances avec `npm install`
+- Consultez [BUILD.md](BUILD.md) pour plus de détails
+- Vérifiez les logs dans le dossier de l'application
 
+### WebGazer.js ne se charge pas (version web)
+- ✅ **Solution:** Utilisez la version .exe (Option 1) qui inclut WebGazer.js localement
+- Sinon, vérifiez votre connexion internet
+- Désactivez les bloqueurs de publicité/contenu
+- Vérifiez la console du navigateur (F12) pour les erreurs
+
+## 🌐 Compatibilité
+
+### Application .exe
+- ✅ Windows 10 et supérieur
+- ✅ Fonctionne offline (pas besoin d'internet)
+
+### Application web
 | Navigateur | Version minimale | Support |
 |------------|------------------|---------|
 | Chrome     | 60+              | ✅ Complet |
@@ -134,6 +198,7 @@ L'application est structurée autour d'une classe principale `EyeTrackApp` qui g
 ## 📚 Ressources
 
 - [WebGazer.js Documentation](https://webgazer.cs.brown.edu/)
+- [Electron Documentation](https://www.electronjs.org/)
 - [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
 - [MediaDevices API](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices)
 
@@ -153,8 +218,9 @@ Ce projet utilise des technologies open-source et est fourni tel quel pour usage
 
 - **WebGazer.js** : Brown University pour la bibliothèque de suivi oculaire
 - **TensorFlow.js** : Google pour le framework d'apprentissage automatique
+- **Electron** : Pour permettre de créer des applications de bureau avec des technologies web
 - La communauté open-source pour l'inspiration et les ressources
 
 ---
 
-Développé avec ❤️ pour rendre l'accessibilité web plus facile
+Développé avec ❤️ pour rendre l'accessibilité informatique plus facile

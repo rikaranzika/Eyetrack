@@ -1,0 +1,55 @@
+{
+  "name": "eyetrack",
+  "version": "1.0.0",
+  "description": "Application de contrôle par suivi oculaire permettant de contrôler votre ordinateur avec vos yeux.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win --x64",
+    "build-all": "electron-builder --win --mac --linux"
+  },
+  "keywords": ["eye-tracking", "accessibility", "webgazer", "electron"],
+  "author": "Eyetrack Team",
+  "license": "MIT",
+  "build": {
+    "appId": "com.eyetrack.app",
+    "productName": "Eyetrack",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "index.html",
+      "app.js",
+      "styles.css",
+      "node_modules/webgazer/**/*",
+      "assets/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.icns"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "assets/icon.png"
+    }
+  },
+  "devDependencies": {
+    "electron": "^39.2.7",
+    "electron-builder": "^26.0.12"
+  },
+  "dependencies": {
+    "webgazer": "^3.4.0"
+  }
+}
+
