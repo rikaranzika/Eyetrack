@@ -70,21 +70,93 @@ For detailed instructions, see [USAGE.md](USAGE.md)
 
 ## Building Standalone Executable
 
-You can package the application as a standalone Windows executable:
+You can package the application as a standalone Windows executable that users can run without installing Node.js or any dependencies.
 
-### Build for Windows (64-bit)
+### Prerequisites for Building
+
+**For Development:**
+- Node.js 14.x or higher
+- npm (comes with Node.js)
+
+**For Building on Linux/macOS:**
+- The packaging will work without Wine for basic executables
+- Wine is optional for advanced features (icons, version info)
+
+**For Building on Windows:**
+- No additional requirements
+
+### Build Commands
+
+#### Build for Windows (64-bit) - Recommended
 ```bash
+npm install  # First time only
 npm run package-win
 ```
 
-### Build for Windows (32-bit)
+#### Build for Windows (32-bit)
 ```bash
+npm install  # First time only
 npm run package-win32
 ```
 
-The executable will be created in the `dist/` folder. You can then distribute the entire folder to users who can run the application without installing Node.js or any dependencies.
+### Build Output
 
-**Note:** Building Windows executables on Linux requires Wine to be installed. On Windows, the packaging will work natively without any additional requirements.
+The executable will be created in the `dist/` folder:
+- **Location:** `dist/Eyetrack-win32-x64/` (for 64-bit) or `dist/Eyetrack-win32-ia32/` (for 32-bit)
+- **Executable:** `Eyetrack.exe`
+- **Size:** ~326 MB (includes Chromium engine and all dependencies)
+- **Files:** The entire folder must be distributed together
+
+### Distribution
+
+To distribute the application to end users:
+
+1. **Compress the folder:**
+   ```bash
+   # Create a ZIP file of the packaged application
+   cd dist
+   zip -r Eyetrack-Windows-x64.zip Eyetrack-win32-x64/
+   ```
+
+2. **Share the ZIP file** with your users
+
+3. **User Instructions:**
+   - Extract the ZIP file to any location
+   - Double-click `Eyetrack.exe` to run the application
+   - No installation required!
+   - Allow camera access when prompted
+
+### What's Included
+
+The packaged application includes:
+- ✅ Electron runtime (Chromium browser engine)
+- ✅ Node.js runtime
+- ✅ All application files (HTML, CSS, JavaScript)
+- ✅ All required system libraries
+- ✅ Everything needed to run standalone
+
+### No Installation Required
+
+Users do NOT need to:
+- Install Node.js
+- Install npm
+- Run any commands
+- Install dependencies
+- Have internet connection (except for MediaPipe CDN)
+
+**Note:** The application still requires internet connection to load the MediaPipe FaceMesh library from CDN. This is a one-time download that gets cached by the browser engine.
+
+### Troubleshooting
+
+**Build fails on Linux/macOS:**
+- The basic build should work without Wine
+- If you see Wine-related errors, they can be safely ignored for basic executables
+- For advanced features (custom icons), install Wine using your package manager
+
+**Application doesn't start:**
+- Make sure all files in the folder stay together
+- Check that Windows Defender or antivirus isn't blocking the executable
+- Try running as Administrator if you encounter permission issues
 
 ## Requirements
 
