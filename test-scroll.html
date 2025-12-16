@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eyetrack - Test de défilement manuel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+        }
+        h1 {
+            color: #333;
+        }
+        .test-controls {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        .status {
+            padding: 10px;
+            background: #e9ecef;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        #mouse-pos {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+        .demo-area {
+            height: 200px;
+            background: linear-gradient(to bottom, #e3f2fd, #fff);
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div id="mouse-pos">Position souris: (0, 0)</div>
+    
+    <div class="container">
+        <h1>🧪 Test de défilement - Eyetrack</h1>
+        
+        <div class="test-controls">
+            <h3>Test du défilement automatique</h3>
+            <p>Ce test simule le défilement automatique basé sur la position de la souris (au lieu des yeux).</p>
+            <button onclick="startScrollTest()">Démarrer le test</button>
+            <button onclick="stopScrollTest()">Arrêter le test</button>
+            <div class="status" id="status">Prêt</div>
+        </div>
+
+        <h3>Instructions</h3>
+        <ul>
+            <li>Cliquez sur "Démarrer le test"</li>
+            <li>Déplacez votre souris vers le haut ou le bas de la fenêtre</li>
+            <li>La page devrait défiler automatiquement</li>
+        </ul>
+
+        <h3>Zones de test</h3>
+        <div class="demo-area" style="background: linear-gradient(to bottom, #e3f2fd, #fff);">
+            Zone 1
+        </div>
+        <div class="demo-area" style="background: linear-gradient(to bottom, #fff3e0, #fff);">
+            Zone 2
+        </div>
+        <div class="demo-area" style="background: linear-gradient(to bottom, #f3e5f5, #fff);">
+            Zone 3
+        </div>
+        <div class="demo-area" style="background: linear-gradient(to bottom, #e8f5e9, #fff);">
+            Zone 4
+        </div>
+        <div class="demo-area" style="background: linear-gradient(to bottom, #fce4ec, #fff);">
+            Zone 5
+        </div>
+        <div class="demo-area" style="background: linear-gradient(to bottom, #e0f7fa, #fff);">
+            Zone 6
+        </div>
+
+        <footer style="margin-top: 50px; padding: 20px; text-align: center; border-top: 2px solid #ddd;">
+            <p>Test de défilement automatique pour Eyetrack</p>
+        </footer>
+    </div>
+
+    <script>
+        let scrollInterval = null;
+        let isTestActive = false;
+
+        function startScrollTest() {
+            if (isTestActive) return;
+            
+            isTestActive = true;
+            document.getElementById('status').textContent = 'Test actif - Déplacez la souris vers le haut ou le bas';
+            
+            document.addEventListener('mousemove', handleMouseMove);
+        }
+
+        function stopScrollTest() {
+            isTestActive = false;
+            document.getElementById('status').textContent = 'Test arrêté';
+            document.removeEventListener('mousemove', handleMouseMove);
+            
+            if (scrollInterval) {
+                clearInterval(scrollInterval);
+                scrollInterval = null;
+            }
+        }
+
+        function handleMouseMove(e) {
+            if (!isTestActive) return;
+            
+            const mouseY = e.clientY;
+            const windowHeight = window.innerHeight;
+            const threshold = 0.15; // 15% from top/bottom
+            const topThreshold = windowHeight * threshold;
+            const bottomThreshold = windowHeight * (1 - threshold);
+            
+            // Update position display
+            document.getElementById('mouse-pos').textContent = 
+                `Position souris: (${e.clientX}, ${e.clientY})`;
+            
+            // Auto-scroll based on mouse position
+            if (mouseY < topThreshold) {
+                // Scroll up
+                const intensity = 1 - (mouseY / topThreshold);
+                const scrollAmount = -5 * intensity;
+                window.scrollBy(0, scrollAmount);
+                document.getElementById('status').textContent = 
+                    `Défilement vers le haut (${Math.round(intensity * 100)}%)`;
+            } else if (mouseY > bottomThreshold) {
+                // Scroll down
+                const intensity = (mouseY - bottomThreshold) / (windowHeight - bottomThreshold);
+                const scrollAmount = 5 * intensity;
+                window.scrollBy(0, scrollAmount);
+                document.getElementById('status').textContent = 
+                    `Défilement vers le bas (${Math.round(intensity * 100)}%)`;
+            } else {
+                document.getElementById('status').textContent = 'Test actif - Pas de défilement';
+            }
+        }
+
+        // Track mouse position always
+        document.addEventListener('mousemove', (e) => {
+            if (!isTestActive) {
+                document.getElementById('mouse-pos').textContent = 
+                    `Position souris: (${e.clientX}, ${e.clientY})`;
+            }
+        });
+    </script>
+</body>
+</html>

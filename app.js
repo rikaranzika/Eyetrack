@@ -100,6 +100,12 @@ class EyeTrackApp {
 
     async initWebGazer() {
         return new Promise((resolve, reject) => {
+            // Check if WebGazer is available
+            if (typeof webgazer === 'undefined') {
+                reject(new Error('WebGazer.js n\'est pas chargé. Veuillez vérifier votre connexion internet et désactiver les bloqueurs de contenu.'));
+                return;
+            }
+            
             webgazer.setGazeListener((data, timestamp) => {
                 if (data == null) return;
                 
@@ -304,7 +310,7 @@ class EyeTrackApp {
     }
 
     stop() {
-        if (webgazer.isReady()) {
+        if (typeof webgazer !== 'undefined' && webgazer.isReady && webgazer.isReady()) {
             webgazer.end();
         }
         
